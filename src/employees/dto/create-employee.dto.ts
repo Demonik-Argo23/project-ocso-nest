@@ -1,5 +1,5 @@
 export class CreateEmployeeDto {
-    id: number;
+    id: string;
     name: string;
     lastname: string;
     phoneNumber: string;
