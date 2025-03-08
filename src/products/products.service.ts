@@ -3,22 +3,27 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import {v4 as uuid} from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Product } from './entities/product.entity';
+import { Product } from 'src/products/entities/product.entity';
 import { Repository } from 'typeorm';
 
+@Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
-  ){
-  }
+  ){}
   create(createProductDto: CreateProductDto) {
     const product = this.productRepository.save(createProductDto)
     return product;
   }
 
   findAll() {
-    return this.productRepository.find();
+    return this.productRepository.find({
+      loadEagerRelations: true,
+      relations:{
+        provider: true
+      }
+    });
   }
 
   findOne(id: string) {
@@ -29,14 +34,8 @@ export class ProductsService {
    return product;
   }
 
-  async findByProvider(id: string) {
-    const productsFound = await this.productRepository.find({
-      where: { provider: id },
-    });
-    if (!productsFound || productsFound.length === 0) {
-      throw new NotFoundException();
-    }
-    return productsFound;
+  findByProvider(id: string) {
+    return "ok"
   }
   
 
