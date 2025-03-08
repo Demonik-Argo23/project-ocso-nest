@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Valid
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { version } from 'os';
 
 @Controller('products')
 export class ProductsController {
@@ -24,8 +23,8 @@ export class ProductsController {
   }
 
   @Get('provider/:id')
-  findByProvider(@Param('id', new ParseUUIDPipe({version: '4'})) id: string) {
-    return this.productsService.findByProvider(id);    
+  findByProvider(@Param('id', new ParseUUIDPipe({version: '4'})) id: string){
+    return this.productsService.findByProvider(id);
   }
 
   @Patch(':id')
