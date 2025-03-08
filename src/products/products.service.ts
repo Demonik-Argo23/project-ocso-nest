@@ -26,15 +26,19 @@ export class ProductsService {
       productId: id,
     })
     if (!product) throw new NotFoundException();
-  return product;
+   return product;
   }
 
-  findByProvider(id: string){
-    const productsFound = this.products.filter((product) => product.provider === id)
-    if (!productsFound) throw new NotFoundException();
-    if (productsFound.length === 0) throw new NotFoundException();
+  async findByProvider(id: string) {
+    const productsFound = await this.productRepository.find({
+      where: { provider: id },
+    });
+    if (!productsFound || productsFound.length === 0) {
+      throw new NotFoundException();
+    }
     return productsFound;
   }
+  
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     const productToUpdate = await this.productRepository.preload({

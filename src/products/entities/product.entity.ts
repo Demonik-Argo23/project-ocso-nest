@@ -1,6 +1,4 @@
-import { text } from "stream/consumers";
 import { Entity,Column,PrimaryGeneratedColumn } from "typeorm";
-import { UUID } from "typeorm/driver/mongodb/bson.typings";
 @Entity()
 export class Product {
     @PrimaryGeneratedColumn("uuid")
