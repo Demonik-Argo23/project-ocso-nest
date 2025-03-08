@@ -20,4 +20,3 @@ export class Employee {
     })
     photoUrl: string;
 }
-
