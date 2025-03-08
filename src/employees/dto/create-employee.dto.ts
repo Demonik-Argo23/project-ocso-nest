@@ -6,7 +6,7 @@ export class CreateEmployeeDto {
     name: string;
     @IsString()
     @MaxLength(40)
-    lastname: string;
+    lastName: string;
     @IsString()
     @MaxLength(10)
     phoneNumber: string;

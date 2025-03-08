@@ -19,11 +19,7 @@ export class ProductsService {
 
   findAll() {
     return this.productRepository.find({
-      loadEagerRelations: true,
-      relations:{
-        provider: true
-      }
-    });
+      loadEagerRelations: true,});
   }
 
   findOne(id: string) {
@@ -35,7 +31,11 @@ export class ProductsService {
   }
 
   findByProvider(id: string) {
-    return "ok"
+    return this.productRepository.findBy({
+      provider:{
+        providerId: id
+      }
+    })
   }
   
 
