@@ -27,5 +27,3 @@ export class Employee {
     })
     location: Location;
 }
-
-

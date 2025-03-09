@@ -9,6 +9,7 @@ import { ProvidersModule } from './providers/providers.module';
 import { ManagersModule } from './managers/managers.module';
 import { LocationsModule } from './locations/locations.module';
 import { RegionsModule } from './regions/regions.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -16,14 +17,14 @@ import { RegionsModule } from './regions/regions.module';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'TheBestPassword',
+    host: process.env.host,
+    port: Number(process.env.port),
+    username: process.env.name,
+    password: process.env.pass,
     database: 'postgres',
     autoLoadEntities: true,
     synchronize: true,
-  }),EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule],
+  }),EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
