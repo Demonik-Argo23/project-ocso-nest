@@ -1,14 +1,21 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateProviderDto } from '../dto/create-provider.dto';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Product } from 'src/products/entities/product.entity'
+
+@Entity()
 
 export class Provider {
+    @PrimaryGeneratedColumn("uuid")
     providerId: string;
+    @Column({type:'text'})
     providerName: string;
-    providerAddress: string;
-    providerPhone: string;
+    @Column('text')
     providerEmail: string;
-    providerStatus: string;
-    products: any;
-}
+    @Column({
+        type: "text",
+        nullable: true
+    })
+    providerPhoneNumber: string;
 
-export class UpdateProviderDto extends PartialType(CreateProviderDto) {}
+    @OneToMany(()=> Product, (photo) => photo.provider)
+    products: Product[] 
+}
