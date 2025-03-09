@@ -7,17 +7,17 @@ import { UpdateUserDto } from './dto/update-user.dto'; ;
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-  @Post("signup")
-  signup(@Body()creatUserDto: CreateUserDto) {
-   return this.authService.registerUser(creatUserDto);
-  }
-  @Post("login")
-  login(@Body() loginUserDto : LoginUserDto ) {
-   return  this.authService.loginUser(loginUserDto);
-  } 
-  @Patch("/:email")
-  updateUser(@Param ("email") userEmail: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.authService.updateUser(userEmail, updateUserDto);
-  }
+    constructor(private readonly authService: AuthService) {}
+    @Post("signup")
+    signup(@Body()creatUserDto: CreateUserDto) {
+        return this.authService.registerUser(creatUserDto);
+    }
+    @Post("login")
+    login(@Body() loginUserDto : LoginUserDto ) {
+        return  this.authService.loginUser(loginUserDto);
+    } 
+    @Patch("/:email")
+    updateUser(@Param ("email") userEmail: string, @Body() updateUserDto: UpdateUserDto) {
+        return this.authService.updateUser(userEmail, updateUserDto);
+    }
 }
