@@ -8,19 +8,21 @@ export class Employee {
 
     employeeId: string;
     @Column({type: "text"})
-    name: string;
+    employeeName: string;
     @Column({type: "text"})
-    lastName: string;
+    employeeLastName: string;
     @Column({type: "text"})
     phoneNumber: string;
-    @Column({type: "text"})
-    email: string;
+    @Column( "text",{
+        unique: true
+    })
+    employeeEmail: string;
     @Column({
         type: "text",
         nullable: true
 
     })
-    photoUrl: string;
+    employeePhoto: string;
     @ManyToOne(()=> Location, (location) => location.employees)
     @JoinColumn({
         name: "locationId"

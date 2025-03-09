@@ -7,6 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { LoginUserDto } from './dto/login-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class AuthService {
   createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
   return this.userRepository.save(createUserDto);
   }
-async loginUser(loginUserDto: LoginUserDto){
+  async loginUser(loginUserDto: LoginUserDto){
   const user =await  this.userRepository.findOne({
     where: {
       userEmail: loginUserDto.userEmail
@@ -41,5 +42,17 @@ async loginUser(loginUserDto: LoginUserDto){
     };
     const token = this.jwtService.sign(payload)
     return token;
+  }
+  
+  async updateUser(userEmail: string,updateUserDto: UpdateUserDto){ 
+    const newUserData = await this.userRepository.preload({
+      userEmail: userEmail,
+      ...updateUserDto
+    })
+    if(!newUserData){
+      throw new UnauthorizedException('No estas autorizado');
+    }
+    this.userRepository.save(newUserData)
+    return newUserData;
   }
 }
