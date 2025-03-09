@@ -3,16 +3,20 @@ import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/fi
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { ROLES } from 'src/auth/constants/roles.constants';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
+  @Auth(ROLES.MANAGER)
   @Post()
   create(@Body() createEmployeeDto: CreateEmployeeDto) {
     return this.employeesService.create(createEmployeeDto);
   }
 
+  @Auth(ROLES.EMPLOYEE, ROLES.MANAGER)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', { 
     dest: './src/employees/employees-photos'
@@ -22,6 +26,7 @@ export class EmployeesController {
   }
 
 
+  @Auth(ROLES.MANAGER)
   @Get()
   findAll() {
     return this.employeesService.findAll();
