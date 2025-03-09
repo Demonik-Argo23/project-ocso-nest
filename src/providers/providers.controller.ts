@@ -7,6 +7,10 @@ import { UseGuards } from '@nestjs/common';
 import { UserData } from 'src/auth/decorators/user.decorator';
 import { User } from 'src/auth/entities/user.entity';
 import { UnauthorizedException } from '@nestjs/common';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+
+
 
 @UseGuards(AuthGuard)
 @Controller('providers')
@@ -18,9 +22,11 @@ export class ProvidersController {
     return this.providersService.create(createProviderDto);
   }
 
+  @Roles(["Admin"])
+  @UseGuards(RolesGuard)
   @Get()
   findAll(@UserData() user: User) {
-    if (user.userRoles.includes('Employee'))throw new UnauthorizedException('No estas autorizado');
+    if (user.userRoles.includes('Employee'))throw new UnauthorizedException('No estas autorizado, solo admins y managers');
     return this.providersService.findAll();
   }
 
