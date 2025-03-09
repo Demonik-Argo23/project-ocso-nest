@@ -1,5 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import { Product } from 'src/products/entities/product.entity'
+import { User } from 'src/auth/entities/user.entity'
 
 @Entity()
 
@@ -18,4 +20,10 @@ export class Provider {
 
     @OneToMany(()=> Product, (photo) => photo.provider)
     products: Product[] 
+
+    @OneToOne(()=> User)
+    @JoinColumn({
+        name: "userId"
+    })
+    user: User;
 }
