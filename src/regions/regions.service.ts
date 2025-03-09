@@ -40,8 +40,5 @@ export class RegionsService {
     return this.regionRepository.delete({
       regionId: id,
     });
-    return {
-      message: 'Region deleted',
-    };
   }
 }

@@ -10,6 +10,7 @@ export class EmployeesService {
   constructor(    
   @InjectRepository(Employee)
   private employeeRepository: Repository<Employee>){}
+  
   async create(createEmployeeDto: CreateEmployeeDto) {
     const employee =await this.employeeRepository.save(createEmployeeDto);
     return employee;

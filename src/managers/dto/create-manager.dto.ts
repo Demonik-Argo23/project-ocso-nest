@@ -9,7 +9,6 @@ export class CreateManagerDto extends Manager{
     @IsEmail()
     managerEmail: string;
     @IsNumber()
-
     managerSalary: number;
     @IsString()
     @MaxLength(16)
