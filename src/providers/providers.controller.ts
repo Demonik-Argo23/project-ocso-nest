@@ -10,9 +10,11 @@ import { UnauthorizedException } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
 import { ApiAuth } from 'src/auth/decorators/api.decorator';
+import { ApiTags } from '@nestjs/swagger';
 
 
 @ApiAuth()
+@ApiTags('providers')
 @UseGuards(AuthGuard)
 @Controller('providers')
 export class ProvidersController {

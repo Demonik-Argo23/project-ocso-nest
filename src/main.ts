@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('Ocso API')
     .setDescription('API for ocso managment')
     .setVersion('0.9')
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
