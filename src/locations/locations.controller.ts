@@ -4,6 +4,7 @@ import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { ROLES } from 'src/auth/constants/roles.constants';
+import { ApiAuth } from 'src/auth/decorators/api.decorator';
 
 @Controller('locations')
 export class LocationsController {
@@ -14,7 +15,7 @@ export class LocationsController {
     create(@Body() createLocationDto: CreateLocationDto) {
     return this.locationsService.create(createLocationDto);
     }
-
+    @ApiAuth()
     @Auth(ROLES.EMPLOYEE, ROLES.MANAGER)
     @Get()
     findAll() {
