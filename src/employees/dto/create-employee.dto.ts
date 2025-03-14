@@ -4,23 +4,33 @@ import { Location } from "src/locations/entities/location.entity";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class CreateEmployeeDto extends Employee{
-    @ApiProperty()
+    @ApiProperty({
+        example:"Maximiliano"
+    })
     @IsString()
     @MaxLength(30)
     employeeName: string;
-    @ApiProperty()
+    @ApiProperty({
+        example:"de Habsburgo"
+    })
     @IsString()
     @MaxLength(40)
     employeeLastName: string;
-    @ApiProperty()
+    @ApiProperty({
+        example:"911"
+    })
     @IsString()
     @MaxLength(10)
     phoneNumber: string;
-    @ApiProperty()
+    @ApiProperty({
+        example:"habsMax@conquer.com"
+    })
     @IsString()
     @IsEmail()
     employeeEmail: string;  
-    @ApiProperty()
+    @ApiProperty({
+        example:"Resinto Secreto, México"
+    })
     @IsOptional()
     @IsObject()
     location: Location;
