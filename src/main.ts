@@ -6,7 +6,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 dotenv.config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin:"localhost:3000"
+    }
+  });
   const config = new DocumentBuilder()
     .setTitle('Ocso API')
     .setDescription('API for ocso managment')
@@ -21,6 +25,6 @@ async function bootstrap() {
     forbidNonWhitelisted: true,
     transform: true,
   }));
-  await app.listen(3000)
+  await app.listen(4000)
 }
 bootstrap();
