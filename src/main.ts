@@ -3,14 +3,19 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
 dotenv.config();
+
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin:"https://localhost:3000"
+      origin:"https://localhost:3000",
+      credentials: true,
     }
   });
+  app.use(cookieParser());
   const config = new DocumentBuilder()
     .setTitle('Ocso API')
     .setDescription('API for ocso managment')
