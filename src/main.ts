@@ -11,7 +11,7 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin:"https://localhost:3000",
+      origin: process.env.allowedOrigin,
       credentials: true,
     }
   });

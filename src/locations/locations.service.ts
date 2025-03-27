@@ -26,6 +26,7 @@ findOne(id: number) {
     const location = this.locationRepository.findOneBy({
     locationId: id,
     });
+    if (!location) throw new NotFoundException("Location not found");  
     return location;
 }
 
