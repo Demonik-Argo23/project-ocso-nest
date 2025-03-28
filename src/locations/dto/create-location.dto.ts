@@ -1,6 +1,7 @@
-import { IsArray, IsString, ArrayNotEmpty, MaxLength } from 'class-validator';
+import { IsArray, IsString, ArrayNotEmpty, MaxLength, IsUUID, IsOptional } from 'class-validator';
 import { Location } from '../entities/location.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Manager } from 'src/managers/entities/manager.entity';
 export class CreateLocationDto extends Location {
     @ApiProperty({
         example:"Mesopotamia"
@@ -21,4 +22,7 @@ export class CreateLocationDto extends Location {
     @ArrayNotEmpty()
     locationLatLng: number[];
 
+    @IsUUID()
+    @IsOptional()
+    manager: string;
 }
