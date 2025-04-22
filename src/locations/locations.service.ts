@@ -17,12 +17,12 @@ export class LocationsService {
 
     async create(createLocationDto: CreateLocationDto) {
         const manager = createLocationDto.manager
-            ? await this.managerRepository.findOneBy({ managerId: createLocationDto.manager })
+            ? await this.managerRepository.findOneBy({ managerId: createLocationDto.manager as unknown as string })
             : undefined;
 
         const location = this.locationRepository.create({
             ...createLocationDto,
-            manager: manager,
+            manager: manager || undefined,
         });
         return this.locationRepository.save(location);
     }
@@ -50,13 +50,13 @@ export class LocationsService {
             .execute();
 
         const manager = updateLocationDto.manager
-            ? await this.managerRepository.findOneBy({ managerId: updateLocationDto.manager })
+            ? await this.managerRepository.findOneBy({ managerId: updateLocationDto.manager as unknown as string })
             : undefined;
 
         const location = await this.locationRepository.preload({
             locationId: id,
             ...updateLocationDto,
-            manager: manager,
+            manager: manager ?? undefined,
         });
         if (!location) {
             throw new NotFoundException();

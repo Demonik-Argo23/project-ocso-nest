@@ -20,10 +20,10 @@ export class Manager {
     @JoinColumn({
         name: 'locationId',
     })
-    location: Location | string;
+    location: Location;
     @OneToOne(() => User)
     @JoinColumn({
         name: 'userId',
     })
-    user: User;
+    user: User | null;
 }
