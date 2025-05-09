@@ -33,6 +33,6 @@ export class CreateProductDto extends Product{
     })
     @IsString()
     @IsUUID()
-    @IsOptional()
-    provider: Provider;
+    @IsString()
+    provider: Provider | string;
 }
