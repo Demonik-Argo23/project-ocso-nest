@@ -8,6 +8,7 @@ import { ManagersModule } from './managers/managers.module';
 import { LocationsModule } from './locations/locations.module';
 import { RegionsModule } from './regions/regions.module';
 import { AuthModule } from './auth/auth.module';
+import { AwsModule } from './aws/aws.module';
 
 
 @Module({
@@ -22,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
     database: 'postgres',
     autoLoadEntities: true,
     synchronize: true,
-  }),EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule],
+  }),EmployeesModule, ProductsModule, ProvidersModule, ManagersModule, LocationsModule, RegionsModule, AuthModule, AwsModule],
   controllers: [],
   providers: [],
 })
