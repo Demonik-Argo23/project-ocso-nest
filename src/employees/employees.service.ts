@@ -22,8 +22,13 @@ export class EmployeesService {
 
   
   findOne(id: string) {
-    const employee = this.employeeRepository.findOneBy({
-      employeeId: id
+    const employee = this.employeeRepository.findOne({
+      where: {
+        employeeId: id
+      },
+      relations : {
+        location : true,
+      }
     });
     return employee;
 
