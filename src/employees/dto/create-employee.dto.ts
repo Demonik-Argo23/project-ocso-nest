@@ -32,7 +32,7 @@ export class CreateEmployeeDto extends Employee{
         example:"Resinto Secreto, México"
     })
     @IsOptional()
-    @IsObject()
+    @IsString()
     location: Location;
 
     @ApiPropertyOptional()

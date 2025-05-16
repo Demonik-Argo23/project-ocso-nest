@@ -8,17 +8,46 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { Manager } from 'src/managers/entities/manager.entity';
 
 
 @Injectable()
 export class AuthService {
   constructor(
-  @InjectRepository(User) private userRepository : Repository<User>,
-  private jwtService: JwtService) {}
-  registerUser(createUserDto: CreateUserDto){
-  createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
-  return this.userRepository.save(createUserDto);
+  @InjectRepository(User) private userRepository: Repository<User>,
+  @InjectRepository(Employee) private employeeRepository: Repository<Employee>,
+  @InjectRepository(Manager) private managerRepository: Repository<Manager>,
+  private jwtService: JwtService,
+  ) {}
+  
+  async registerEmployee(id: string,createUserDto: CreateUserDto) {
+    createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
+    const user = await this.userRepository.save(createUserDto);
+    const employee = await this.employeeRepository.preload({
+      employeeId: id,
+    });
+    if (!employee) {
+      throw new UnauthorizedException('Empleado no encontrado');
+    }
+    employee.user = user;
+    return this.employeeRepository.save(employee);
   }
+
+  async registerManager(id: string,createUserDto: CreateUserDto) {
+    createUserDto.userPassword = bcrypt.hashSync(createUserDto.userPassword, 5);
+    const user = await this.userRepository.save(createUserDto);
+    const managerToUpdate = await this.managerRepository.preload({
+      managerId: id,
+    });
+    if (!managerToUpdate) {
+      throw new UnauthorizedException('Empleado no encontrado');
+    }
+    managerToUpdate.user = user;
+    return this.managerRepository.save(managerToUpdate);
+  }
+
+
   async loginUser(loginUserDto: LoginUserDto){
   const user =await  this.userRepository.findOne({
     where: {
