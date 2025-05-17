@@ -28,6 +28,7 @@ findOne(id: string) {
     where: {managerId: id},
     relations: {
         location:true,
+        user:true
     }
 
 });

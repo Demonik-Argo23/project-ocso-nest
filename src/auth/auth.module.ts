@@ -13,11 +13,13 @@ import { EXPIRES_IN, JWT_KEY } from './constants/jwt.constants';
         TypeOrmModule.forFeature([User, Employee, Manager]),
         JwtModule.register({
             secret: JWT_KEY,
-            signOptions: { expiresIn: EXPIRES_IN },
+            signOptions: {
+                expiresIn: EXPIRES_IN,
+            },
             global: true
         })
-    ],  
+    ],
     controllers: [AuthController],
     providers: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }
